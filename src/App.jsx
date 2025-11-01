@@ -21,7 +21,20 @@ function App() {
   }, [])
 
   async function reviewCode() {
-    const response = await axios.post('http://localhost:3000/ai/get-review', { code })
+     console.log("Review button clicked ✅");
+  try {
+    const response = await axios.post(
+      'https://ai-backend-psi-nine.vercel.app/ai/get-review',
+      { code }
+    );
+    console.log("Response received ✅", response.data);
+    setReview(response.data);
+  } catch (err) {
+    console.error("❌ Error from backend:", err);
+  } finally {
+    console.log("Request completed 🚀");
+  }
+    const response = await axios.post('https://ai-backend-psi-nine.vercel.app/ai/get-review', { code })
     setReview(response.data)
   }
 
